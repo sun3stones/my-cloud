@@ -44,6 +44,8 @@
     <modules>
         <module>eruka-server</module>
         <module>config-server</module>
+        <module>gateway</module>
+        <module>oauth2</module>
     </modules>
 
     <build>
