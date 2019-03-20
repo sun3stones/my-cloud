@@ -1,0 +1,23 @@
+server:
+  #\u7AEF\u53E3
+  port: 8002
+
+#\u670D\u52A1\u5668\u53D1\u73B0\u6CE8\u518C\u914D\u7F6E
+eureka:
+  client:
+    serviceUrl:
+      #\u914D\u7F6E\u670D\u52A1\u4E2D\u5FC3(\u53EF\u914D\u7F6E\u591A\u4E2A,\u7528\u9017\u53F7\u9694\u5F00)
+      defaultZone: http://localhost:8000/eureka/
+
+#spring\u914D\u7F6E
+spring:
+  #\u5E94\u7528\u914D\u7F6E
+  application:
+    #\u540D\u79F0: api\u7F51\u5173\u670D\u52A1
+    name: service-gateway
+  cloud:
+      config:
+        discovery:
+          enabled: true
+          service-id: service-config
+        profile: dev

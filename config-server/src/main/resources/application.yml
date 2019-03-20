@@ -12,8 +12,8 @@ spring:
     config:
       server:
         native:
-          search-locations: classpath:config/ # \u641C\u7D22src/main/resource \u4E0B\u7684properties\u6587\u4EF6\u5939\u4E0B\u7684\u6587\u4EF6
+          search-locations: classpath:config/ #配置文件目录
   application:
     name: service-config
   profiles:
-    active: native  # \u914D\u7F6E\u4F7F\u7528\u672C\u5730\u50A8\u5B58
+    active: native  # 从本地读取配置
