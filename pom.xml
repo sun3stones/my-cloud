@@ -46,6 +46,7 @@
         <module>config-server</module>
         <module>gateway</module>
         <module>oauth2</module>
+        <module>mywechat</module>
     </modules>
 
     <build>
