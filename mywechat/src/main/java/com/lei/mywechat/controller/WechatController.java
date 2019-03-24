@@ -1,7 +1,6 @@
 package com.lei.mywechat.controller;
 
 import com.lei.mywechat.utils.CheckUtil;
-import com.netflix.discovery.util.StringUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
