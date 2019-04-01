@@ -23,4 +23,10 @@ public class WechatController {
             return "";
         }
     }
+
+    @RequestMapping("/getUserInfo")
+    public Object getUserInfo(){
+
+        return null;
+    }
 }
