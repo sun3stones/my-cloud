@@ -3,16 +3,17 @@
  */
 package com.lei.mywechat.weixin;
 
-import lei.front.utils.HttpClientUtil;
-import lei.front.utils.ParamUtils;
-import lei.front.utils.redis.RedisService;
-import lei.front.utils.wx.WxConfig;
-import lei.front.weixin.utils.StringUtils;
-import lei.front.weixin.utils.WxUtils;
-import lei.front.weixin.utils.XmlUtils;
+import com.lei.mywechat.utils.Config;
+import com.lei.mywechat.utils.HttpClientUtil;
+import com.lei.mywechat.utils.ParamUtils;
+import com.lei.mywechat.utils.XmlUtils;
+import com.lei.mywechat.utils.redis.RedisService;
+import com.lei.mywechat.weixin.utils.WxUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -116,8 +117,8 @@ public class BaseWeiXinTokenController {
 		System.out.println("****************进入关注事件********subscribePush********");
 		String content = "[{\"title\":\"欢迎关注孙磊测试号\","
 						+ "\"description\":\"点击进入认证页面，填写手机号待管理员认证！\","
-						+ "\"url\":\""+WxConfig.WX_MY()+"/wxuser/index\","
-						+ "\"picurl\":\""+WxConfig.ATTENDTIONPIC()+"\"}]";
+						+ "\"url\":\""+ Config.getBaseUrl()+"/wxuser/index\","
+						+ "\"picurl\":\""+""+"\"}]";
 		return pushTextContent(request, response, content);
 	}
 	
@@ -130,7 +131,7 @@ public class BaseWeiXinTokenController {
 		String nonce = ParamUtils.getParameter(request, "nonce");
 		boolean b = false;
 		if (null != signature && null != timestamp && null != nonce) {
-			String[] arr = { WxConfig.TOKEN(), timestamp, nonce };
+			String[] arr = { Config.getToken(), timestamp, nonce };
 			Arrays.sort(arr);
 			String sign = DigestUtils.shaHex(arr[0] + arr[1] + arr[2]);
 			b = signature.equals(sign);
@@ -153,12 +154,12 @@ public class BaseWeiXinTokenController {
 	private String dealText(HttpServletRequest request,Msg msg) {
 		Map<String,String> map = new HashMap<>();
 		map.put("ToUserName", msg.getFromUser());//来自谁回复谁
-		map.put("FromUserName", WxConfig.OPENID());
+		map.put("FromUserName", Config.getOpenid());
 		map.put("CreateTime", String.valueOf(System.currentTimeMillis()));
 		map.put("MsgType", "text");
 		
 		//调用京东图灵聊天机器人
-		String rs = HttpClientUtil.doGet(JD_TURING_URL+WxConfig.JD_APPID()+"&info="+msg.getContent()+"&userid="+msg.getFromUser());
+		String rs = HttpClientUtil.doGet(JD_TURING_URL+Config.getJdAppid()+"&info="+msg.getContent()+"&userid="+msg.getFromUser());
 		String content = WxUtils.find(rs, "\"text\":\"(.*?)\"")	;
 		
 		map.put("Content", content);
@@ -175,7 +176,7 @@ public class BaseWeiXinTokenController {
 		}
 		return null;
 	}
-	
+
 	private String pushTextContent(HttpServletRequest request,HttpServletResponse response,String content) throws Exception{
 		String openId = request.getParameter("openid");
 		if(StringUtils.isBlank(content))return DEFAULT_RV;

@@ -1,9 +1,11 @@
+base_url: http://localhost:8004/
+
 wechat:
   token: sun3stones
   AppId: wxb3047c48b4907e88
   AppSecret: cbaf50af6ae9a4a44025d9f6ccf3310a
   EncodingAESKey: ODoRUts4QA2olvyjNRh5tVQZ25RERHLLQLN9jxYWWuC
-name: sunlei
+  openid: gh_44ccac9e07af
 
 # 驱动配置信息
 #
@@ -36,3 +38,8 @@ spring:
     filters: stat,wall,log4j
 # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=100
+
+
+
+##京东接口APPID##
+JD_APPID: 7f1b9e9fecf1f3b02b952ac6363009d3

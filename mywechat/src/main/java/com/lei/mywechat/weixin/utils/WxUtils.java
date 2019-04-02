@@ -1,5 +1,6 @@
 package com.lei.mywechat.weixin.utils;
 
+import com.lei.mywechat.utils.Config;
 import com.lei.mywechat.utils.HttpClientUtil;
 import org.apache.commons.lang.StringUtils;
 
@@ -21,7 +22,7 @@ import java.util.regex.Pattern;
  * 微信支持工具类
  * 
  * <pre>
- * 非web依赖，web相关工具类请参考{@link WxWeb}
+ * 非web依赖，web相关工具类请参考
  * </pre>
  * 
  * @author HeHongxin
@@ -43,7 +44,7 @@ public class WxUtils {
 	 */
 	public static String newToken() {
 		//https://api.weixin.qq.com/sns/userinfo
-		String source = HttpClientUtil.doGet("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + WxConfig.APPID() + "&secret=" + WxConfig.SECRET());
+		String source = HttpClientUtil.doGet("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + Config.getAppId() + "&secret=" + Config.getAppSecret());
 		System.out.println("*********newToken***************source="+source);
 		return find(source, "\"access_token\":\"(.*?)\"");
 	}
@@ -59,8 +60,8 @@ public class WxUtils {
 	/**
 	 * 获取分享签名
 	 * @param accessticket jsapi_ticket
-	 * @param timespanstr生成签名的时间戳
-	 * @param nonceStr生成签名的随机串
+	 * @param timespanstr 生成签名的时间戳
+	 * @param nonceStr 生成签名的随机串
 	 * @param url 生成签名的url
 	 */
 	public static String getSignature(String accessticket,String timespanstr,String nonceStr, String url){
@@ -98,20 +99,16 @@ public class WxUtils {
 	}
 	
 	public static String urlEncode(String url,String parameter) {
-		if (WxConfig.TEST()) {
-			return url;
-		} else {
-			try {
-				String urlString = WxConfig.WX_MY() + url;
-				urlString = WxUtils.filterUrl(urlString);
-				String eu = URLEncoder.encode(urlString, "UTF-8");
-				
-				String mUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.APPID() + "&redirect_uri=" + eu + "&response_type=code&scope=snsapi_base&state="+parameter+"#wechat_redirect";
-				return mUrl;
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-				return null;
-			}
+		try {
+			String urlString = Config.getBaseUrl() + url;
+			urlString = WxUtils.filterUrl(urlString);
+			String eu = URLEncoder.encode(urlString, "UTF-8");
+
+			String mUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.getAppId() + "&redirect_uri=" + eu + "&response_type=code&scope=snsapi_base&state="+parameter+"#wechat_redirect";
+			return mUrl;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -159,17 +156,13 @@ public class WxUtils {
 	}
 	
 	public static String urlEncodeByUserInfo(String url,String parameter) {
-		if (WxConfig.TEST()) {
-			return url;
-		} else {
-			try {
-				String eu = URLEncoder.encode(url, "UTF-8");
-				String mUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.APPID() + "&redirect_uri=" + eu + "&response_type=code&scope=snsapi_userinfo&state="+parameter+"#wechat_redirect";
-				return mUrl;
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-				return null;
-			}
+		try {
+			String eu = URLEncoder.encode(url, "UTF-8");
+			String mUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.getAppId() + "&redirect_uri=" + eu + "&response_type=code&scope=snsapi_userinfo&state="+parameter+"#wechat_redirect";
+			return mUrl;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -260,8 +253,7 @@ public class WxUtils {
 
 		/** 
 	     * SHA1 安全加密算法 
-	     * @param maps 参数key-value map集合 
-	     * @return 
+	     * @return
 	     * @throws DigestException  
 	     */  
 		//sha1 字符串加密    

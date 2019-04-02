@@ -3,13 +3,13 @@
  */
 package com.lei.mywechat.filter;
 
+import com.lei.mywechat.service.IWxUserService;
 import com.lei.mywechat.weixin.WXService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,9 +24,8 @@ public class UserInfoInterceptor implements HandlerInterceptor{
 
 	@Autowired
 	private WXService wxService;
-	
-	@Resource(name = "wxUserService")
-	private WxUserService wxUserService;
+	@Autowired
+	private IWxUserService wxUserService;
 	
 	@Override
 	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)

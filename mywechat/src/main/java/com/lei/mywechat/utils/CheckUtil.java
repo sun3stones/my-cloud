@@ -2,16 +2,19 @@ package com.lei.mywechat.utils;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import java.security.MessageDigest;
-import java.util.Arrays;
+import java.util.*;
+
 /**
  * 
  * 类名称: CheckUtil
  * 类描述: 微信请求校验
  */
 @Component
+@RefreshScope
 public class CheckUtil {
 
 	private static String token;
@@ -72,5 +75,22 @@ public class CheckUtil {
 				throw new RuntimeException(e);
 			}
 		}
+	}
+
+	/**
+	 * 根据ASCII码排序
+	 *
+	 * @param set
+	 *            Set集合
+	 * @return List集合
+	 */
+	public static List<String> sort(Set<String> set) {
+		List<String> keys = new ArrayList<String>(set);
+		Collections.sort(keys, new Comparator<String>() {
+			public int compare(String o1, String o2) {
+				return o1.compareTo(o2);// 根据ASCII码排序KEY
+			};
+		});
+		return keys;
 	}
 }
