@@ -15,27 +15,27 @@ public class Config {
     private static String BaseUrl;
     private static String JD_APPID;
 
-    @Value("wechat.AppId")
+    @Value("${wechat.AppId}")
     public void setAppid(String AppId){
         this.AppId = AppId;
     }
-    @Value("wechat.AppSecret")
+    @Value("${wechat.AppSecret}")
     public void setAppSecret(String AppSecret){
         this.AppSecret = AppSecret;
     }
-    @Value("wechat.token")
+    @Value("${wechat.token}")
     public void setToken(String token){
         this.token = token;
     }
-    @Value("wechat.openid")
+    @Value("${wechat.openid}")
     public void setOpenid(String openid){
         this.openid = openid;
     }
-    @Value("base_url")
+    @Value("${base_url}")
     public void setBaseUrl(String BaseUrl){
         this.BaseUrl = BaseUrl;
     }
-    @Value("JD_APPID")
+    @Value("${JD_APPID}")
     public void setJdAppid(String JD_APPID){
         this.JD_APPID = JD_APPID;
     }

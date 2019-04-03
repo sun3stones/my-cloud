@@ -1,11 +1,11 @@
-base_url: http://localhost:8004/
+base_url: http://apnsdu.natappfree.cc
 
 wechat:
   token: sun3stones
-  AppId: wxb3047c48b4907e88
-  AppSecret: cbaf50af6ae9a4a44025d9f6ccf3310a
+  AppId: wx6f59fd1f3516bf4e
+  AppSecret: 5e98fcd7a5fb9896fd5b9443ced6b321
   EncodingAESKey: ODoRUts4QA2olvyjNRh5tVQZ25RERHLLQLN9jxYWWuC
-  openid: gh_44ccac9e07af
+  openid: gh_25b17b28d224
 
 # 驱动配置信息
 #
@@ -38,6 +38,28 @@ spring:
     filters: stat,wall,log4j
 # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=100
+  redis:
+      database: 0
+      host: 127.0.0.1
+      jedis:
+        pool:
+          #最大连接数据库连接数,设 0 为没有限制
+          max-active: 8
+          #最大等待连接中的数量,设 0 为没有限制
+          max-idle: 8
+          #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+          max-wait: -1ms
+          #最小等待连接中的数量,设 0 为没有限制
+          min-idle: 0
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          max-wait: -1ms
+          min-idle: 0
+        shutdown-timeout: 100ms
+      password: ''
+      port: 6379
 
 
 

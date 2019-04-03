@@ -7,13 +7,12 @@ import com.lei.mywechat.utils.Config;
 import com.lei.mywechat.utils.HttpClientUtil;
 import com.lei.mywechat.utils.ParamUtils;
 import com.lei.mywechat.utils.XmlUtils;
-import com.lei.mywechat.utils.redis.RedisService;
 import com.lei.mywechat.weixin.utils.WxUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +24,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -37,9 +37,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("wx")
 public class BaseWeiXinTokenController {
-
 	@Autowired
-	private RedisService redis;
+	private RedisTemplate redisTemplate;
 	
 	/** 客服消息服务地址 */
 	private static final String CUST_SERVER_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
@@ -194,10 +193,10 @@ public class BaseWeiXinTokenController {
 	 * 获取token
 	 */
 	public String getToken(){
-		String token = redis.get("token");
-		if(token == null){
+		String token = "";
+		if(redisTemplate.opsForValue().get("token") == null){
 			token = WxUtils.newToken();
-			redis.setAndExpir("token", token,7200);
+			redisTemplate.opsForValue().set("token",token,2,TimeUnit.HOURS);
 		}	
 		return token;	
 	}
