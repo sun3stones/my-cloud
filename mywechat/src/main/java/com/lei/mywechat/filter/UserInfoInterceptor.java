@@ -3,13 +3,13 @@
  */
 package com.lei.mywechat.filter;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lei.mywechat.entity.WxUser;
 import com.lei.mywechat.service.IWxUserService;
 import com.lei.mywechat.weixin.WXService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,8 +46,16 @@ public class UserInfoInterceptor implements HandlerInterceptor{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
+		//跨域请求
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
+		response.addHeader("Access-Control-Allow-Headers", "Authentication,Origin, X-Requested-With, Content-Type, Accept,token,openid");
+		//ajax请求会请求两次，第一次请求options不要拦截
+		if (request.getMethod().equals(RequestMethod.OPTIONS.name())) {
+			return true;
+		}
 		System.out.println("拦截地址："+request.getRequestURL());
-		String openid = request.getHeader("openid");
+  		String openid = request.getHeader("openid");
 		if(StringUtils.isEmpty(openid)){
 			openid = wxService.openId(request, response);
 			System.out.println("获取的openid:"+openid);
