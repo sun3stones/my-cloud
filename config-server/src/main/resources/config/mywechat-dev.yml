@@ -1,4 +1,4 @@
-base_url: http://apnsdu.natappfree.cc
+base_url: http://sun3stones.natapp1.cc
 
 wechat:
   token: sun3stones
@@ -61,6 +61,10 @@ spring:
       password: ''
       port: 6379
 
+mybatis-plus:
+  global-config:
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 0
 
 
 ##京东接口APPID##

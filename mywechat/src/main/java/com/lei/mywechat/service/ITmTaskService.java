@@ -1,6 +1,6 @@
 package com.lei.mywechat.service;
 
-import com.lei.mywechat.entity.WxUser;
+import com.lei.mywechat.entity.TmTask;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author sunlei
- * @since 2019-04-13
+ * @since 2019-05-02
  */
-public interface IWxUserService extends IService<WxUser> {
+public interface ITmTaskService extends IService<TmTask> {
 
 }

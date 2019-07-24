@@ -36,7 +36,6 @@ public class WxUtils {
 
 	public static final String LOG_PREFIX = "【服务号】";
 
-	
 	/**
 	 * 申请token
 	 * 

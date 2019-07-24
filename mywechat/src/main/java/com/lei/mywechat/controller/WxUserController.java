@@ -11,6 +11,7 @@ import com.lei.mywechat.weixin.WXService;
 import com.lei.mywechat.weixin.utils.WxUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -36,6 +40,8 @@ public class WxUserController {
     private IWxUserService userService;
     @Autowired
     private WXService wxService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @RequestMapping("/getInfo")
     public Object getInfo(HttpServletRequest request, HttpServletResponse response){
@@ -88,18 +94,16 @@ public class WxUserController {
                     QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
                     wrapper.eq("openid", openid);
                     WxUser wxUser = userService.getOne(wrapper);
-                    wxUser.setWxname(object.getString("nickname"));
-                    wxUser.setHeadimg(object.getString("headimgurl"));
                     if (wxUser == null) {
                         wxUser = new WxUser();
                         wxUser.setOpenid(openid);
-                        userService.save(wxUser);
-                    }else{
-                        //userService.updateById(wxUser);
                     }
-                    url="http://localhost:8010/#/mine?openid="+openid+"&wxname="+ URLEncoder.encode(wxUser.getWxname(),"UTF-8")+"&headimg="+wxUser.getHeadimg();
+                    wxUser.setSex(object.getString("sex"));
+                    wxUser.setNickname(object.getString("nickname"));
+                    wxUser.setHeadimgurl(object.getString("headimgurl"));
+                    userService.saveOrUpdate(wxUser);
+                    url="http://localhost:8010/#/mine?openid="+openid+"&nickname="+ URLEncoder.encode(wxUser.getNickname(),"UTF-8")+"&headimgurl="+wxUser.getHeadimgurl();
                     response.sendRedirect(url);
-
                 }
             }
         } catch (IOException e) {

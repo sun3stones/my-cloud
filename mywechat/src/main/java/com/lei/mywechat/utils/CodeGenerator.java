@@ -1,5 +1,6 @@
 package com.lei.mywechat.utils;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -45,6 +46,9 @@ public class CodeGenerator {
         gc.setOutputDir(projectPath + "/mywechat/src/main/java");
         gc.setAuthor("sunlei");
         gc.setOpen(false);
+        gc.setIdType(IdType.ID_WORKER);
+        gc.setFileOverride(true);//覆盖已有有文件
+        gc.setBaseResultMap(true);//开启BaseResultMap
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
 
@@ -102,8 +106,8 @@ public class CodeGenerator {
         // templateConfig.setController();
 
         templateConfig.setXml(null);
+        templateConfig.setController(null);
         mpg.setTemplate(templateConfig);
-
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
@@ -113,7 +117,6 @@ public class CodeGenerator {
         strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.lei.mywechat.controller.BaseController");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
-        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         //strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);

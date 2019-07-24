@@ -3,13 +3,9 @@
  */
 package com.lei.mywechat.filter;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lei.mywechat.entity.WxUser;
 import com.lei.mywechat.service.IWxUserService;
 import com.lei.mywechat.weixin.WXService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,7 +42,7 @@ public class UserInfoInterceptor implements HandlerInterceptor{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-		//跨域请求
+		/*//跨域请求
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
 		response.addHeader("Access-Control-Allow-Headers", "Authentication,Origin, X-Requested-With, Content-Type, Accept,token,openid");
@@ -70,8 +66,9 @@ public class UserInfoInterceptor implements HandlerInterceptor{
 				wxUser.setOpenid(openid);
 				wxUserService.save(wxUser);
 			}
-			request.setAttribute("openid",openid);
-		}
+			HttpSession session = request.getSession();
+			session.setAttribute("openid",openid);
+		}*/
 		return true;
 	}
 

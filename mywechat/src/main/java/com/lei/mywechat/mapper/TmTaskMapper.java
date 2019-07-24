@@ -1,6 +1,6 @@
 package com.lei.mywechat.mapper;
 
-import com.lei.mywechat.entity.WxUser;
+import com.lei.mywechat.entity.TmTask;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author sunlei
- * @since 2019-04-13
+ * @since 2019-05-02
  */
-public interface WxUserMapper extends BaseMapper<WxUser> {
+public interface TmTaskMapper extends BaseMapper<TmTask> {
 
 }

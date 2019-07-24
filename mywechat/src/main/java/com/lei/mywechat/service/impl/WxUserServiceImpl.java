@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author sunlei
- * @since 2019-04-01
+ * @since 2019-04-13
  */
 @Service
 public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> implements IWxUserService {
