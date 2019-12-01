@@ -13,3 +13,8 @@ eureka:
 spring:
   application:
     name: eurka-server
+
+management:
+  endpoint:
+    health:
+      show-details: always

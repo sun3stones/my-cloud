@@ -11,9 +11,25 @@ spring:
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:config/ #配置文件目录
+#        native:
+#         search-locations: classpath:config/ #配置文件目录
+        git:
+          uri: https://github.com/sun3stones/my-cloud
+          search-paths: config-server/src/main/resources/config
+          username: 2554353621@qq.com
+          password: sun3stones.
+  rabbitmq:
+      host: 127.0.0.1
+      port: 5672
+      username: springcloud
+      password: springcloud
   application:
     name: service-config
-  profiles:
-    active: native  # 从本地读取配置
+#  profiles:
+#    active: git  # 从本地读取配置
+
+management:
+  endpoints:                  #SpringCloud 2.0.0版本以后暴露接口方式
+    web:
+      exposure:
+        include: "*"

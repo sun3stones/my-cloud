@@ -11,3 +11,10 @@ zuul:
       serviceId: mywechat
   #添加代理头
   add-proxy-headers: true
+
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: springcloud
+    password: springcloud
