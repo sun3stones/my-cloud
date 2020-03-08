@@ -41,6 +41,11 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -66,8 +71,9 @@
         <module>eruka-server</module>
         <module>config-server</module>
         <module>gateway</module>
-       <!-- <module>oauth2</module>-->
         <module>mywechat</module>
+        <module>mq</module>
+        <module>oauth-server</module>
     </modules>
 
     <build>

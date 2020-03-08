@@ -1,4 +1,4 @@
-package com.lei.mywechat.utils.redis;
+package com.lei.mywechat.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

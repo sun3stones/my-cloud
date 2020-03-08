@@ -1,14 +1,14 @@
 server:
-  port: 8004
+  port: 8003
 spring:
   application:
-    name: mywechat
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: service-config
-      profile: dev
+    name: oauth-server
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: service-config
+#      profile: dev
 
 eureka:
   client:
