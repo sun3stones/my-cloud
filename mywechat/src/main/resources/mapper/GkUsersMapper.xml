@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lei.mywechat.mapper.GkUsersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lei.mywechat.entity.GkUsers">
+        <id column="id" property="id" />
+        <result column="user_login" property="userLogin" />
+        <result column="user_pass" property="userPass" />
+        <result column="user_nicename" property="userNicename" />
+        <result column="user_email" property="userEmail" />
+        <result column="user_url" property="userUrl" />
+        <result column="avatar" property="avatar" />
+        <result column="sex" property="sex" />
+        <result column="birthday" property="birthday" />
+        <result column="signature" property="signature" />
+        <result column="last_login_ip" property="lastLoginIp" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="create_time" property="createTime" />
+        <result column="user_activation_key" property="userActivationKey" />
+        <result column="user_status" property="userStatus" />
+        <result column="score" property="score" />
+        <result column="user_type" property="userType" />
+        <result column="coin" property="coin" />
+        <result column="mobile" property="mobile" />
+    </resultMap>
+
+</mapper>
